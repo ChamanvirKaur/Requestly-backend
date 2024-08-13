@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
 
     'base',
     'user'
@@ -90,6 +91,20 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# settings.py
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'Requestly',
+#         'USER': 'tulong',
+#         'PASSWORD': '2long2023#',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
+# }
+
 
 
 # Password validation

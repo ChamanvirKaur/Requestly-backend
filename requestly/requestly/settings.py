@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-3b1)3nhty45=by7dgei=1yt+@lxm&a9n2m&qky6h2n81@uf)x)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app']
 
 AUTH_USER_MODEL = "user.UserDetail"
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
 
     'base',
     'user'
@@ -90,6 +91,20 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# settings.py
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'Requestly',
+#         'USER': 'tulong',
+#         'PASSWORD': '2long2023#',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
+# }
+
 
 
 # Password validation

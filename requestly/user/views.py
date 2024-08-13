@@ -7,6 +7,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth import authenticate
 from .serializers import UserSerializer
+from django.contrib.auth.models import User
+from .models import UserDetail
 
 class UserCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
@@ -34,6 +36,12 @@ class LogoutView(APIView):
             return Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
         except Token.DoesNotExist:
             return Response({"detail": "Invalid request."}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class UserListView(generics.ListAPIView):
+    queryset = UserDetail.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]  # Only authenticated users can access this view
 
 
     

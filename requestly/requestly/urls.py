@@ -19,6 +19,7 @@ from django.urls import path,include
 # from django.contrib.auth.models import Group
 
 urlpatterns = [
+    path('',include('base.urls')),
     path('admin/', admin.site.urls),
     path('api/users/',include('user.urls')),
 ]

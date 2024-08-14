@@ -10,6 +10,7 @@ from .serializers import UserSerializer
 from django.contrib.auth.models import User
 from .models import UserDetail
 
+
 class UserCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]

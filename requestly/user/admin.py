@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserDetail, ticket, Branch
+from .models import UserDetail, ticket
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserCreationForm , UserChangeForm
 from django.contrib.auth.models import Group
@@ -30,10 +30,10 @@ class TicketView(admin.ModelAdmin):
     list_per_page= 30
 
 
-class BranchView(admin.ModelAdmin):
-    list_display = ('branch_number', 'branch_name', 'branch_address', 'branch_phone')
-    search_field = ('branch_number','branch_name','branch_city')
-    list_per_page = 30
+# class BranchView(admin.ModelAdmin):
+#     list_display = ('branch_number', 'branch_name', 'branch_address', 'branch_phone')
+#     search_field = ('branch_number','branch_name','branch_city')
+#     list_per_page = 30
 
 # admin.site.unregister(UserDetail)
 admin.site.register(UserDetail, CustomUserAdmin)
@@ -43,4 +43,4 @@ admin.site.unregister(Group)
 Group._meta.verbose_name_plural = 'Groups/Brand'
 admin.site.register(Group)
 
-admin.site.register(Branch,BranchView)
+# admin.site.register(Branch,BranchView)

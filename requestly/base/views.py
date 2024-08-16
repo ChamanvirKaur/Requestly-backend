@@ -1,7 +1,7 @@
 from django.shortcuts import render
+from django.shortcuts import HttpResponse
 from django.http import HttpResponse
 
-def FrontEnd(request):
-    return HttpResponse("Hello, Please check your frontend!!")
 
-
+def SimpleView(request):
+    return HttpResponse("This is a simple test ! Please refer to the backend")

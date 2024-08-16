@@ -6,5 +6,5 @@ class BranchView(admin.ModelAdmin):
     search_field = ('branch_number','branch_name','branch_city')
     list_per_page = 30
 
-admin.site.register(BranchView,Branch)
+admin.site.register(Branch,BranchView)
 

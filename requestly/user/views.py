@@ -1,19 +1,31 @@
 # users/views.py
 
-from rest_framework import generics, status
+from rest_framework import generics, status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth import authenticate
-from .serializers import UserSerializer
+from .serializers import UserSerializer, TicketSerializer
 from django.contrib.auth.models import User
-from .models import UserDetail
+from .models import UserDetail, ticket
 
 
 class UserCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+
+    def create (self, request, *args, **kwargs):
+        serializer = self.get_serializer(data = request.data)
+        serializer.is_valid(raise_exception = True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+
+        return Response(
+            {"message" :"User Created Successfully!", "data" : serializer.data},
+            status = status.HTTP_201_CREATED,
+            headers=headers 
+        )
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
@@ -43,6 +55,10 @@ class UserListView(generics.ListAPIView):
     queryset = UserDetail.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]  # Only authenticated users can access this view
+
+class TicketViewSet(viewsets.ModelViewSet):
+    queryset = ticket.objects.all()
+    serializer_class = TicketSerializer
 
 
     

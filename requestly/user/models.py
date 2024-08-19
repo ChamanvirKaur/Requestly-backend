@@ -3,6 +3,7 @@ from base.models import BaseModel
 from django.contrib.auth.models import AbstractUser
 from shortuuidfield import ShortUUIDField
 from autodatetimefields.models import AutoDateTimeField
+from branch.models import Branch
 
 class UserDetail(BaseModel,AbstractUser):
            phone=models.CharField(max_length=14,unique=True, null=True)
@@ -27,6 +28,7 @@ class ticket(models.Model):
         estimated_completion=models.DateTimeField()
         created_on = models.DateTimeField(auto_now_add=True)
         modified_on = AutoDateTimeField(auto_now=True)
+        requested_for = models.ForeignKey(Branch, on_delete=models.CASCADE)
 
         def __str__(self):
                 return self.ticket_number

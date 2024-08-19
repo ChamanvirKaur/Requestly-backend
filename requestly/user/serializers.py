@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from user.models import UserDetail
+from user.models import UserDetail, ticket
 
 class UserSerializer(serializers.ModelSerializer):
     # password2 = serializers.CharField(write_only=True, required=True)
@@ -28,3 +28,9 @@ class UserSerializer(serializers.ModelSerializer):
             user.set_password(validated_data['password'])  
             user.save()
             return user
+        
+class TicketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ticket
+        fields = '__all__'
+

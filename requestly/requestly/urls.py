@@ -22,7 +22,7 @@ urlpatterns = [
     path('',include('base.urls')),
     path('admin/', admin.site.urls),
     path('api/users/',include('user.urls')),
-    # path('api/branch/',include('branch.urls')),
+    path('api/',include('branch.urls')),
 ]
 
 # Configure Admin Titles

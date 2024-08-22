@@ -56,9 +56,18 @@ class UserListView(generics.ListAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]  # Only authenticated users can access this view
 
+
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = ticket.objects.all()
     serializer_class = TicketSerializer
 
 
+class ProfileView(APIView):
+    permission_classes =[IsAuthenticated]
+
+    def get(self,request):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+    
     

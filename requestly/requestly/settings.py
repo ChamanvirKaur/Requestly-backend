@@ -156,8 +156,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ORIGIN_WHITELIST = [
+CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
-    'http://192.168.52.133:3000'
+    'http://192.168.52.133:3000',
+    'https://requestly-front-end.vercel.app/',
 ]
+
+CORS_ALLOW_CREDENTIALS = True
+
+

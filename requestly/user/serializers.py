@@ -25,19 +25,20 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
         
         
-# class TicketSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ticket
-#         fields = '__all__'
-
 class TicketSerializer(serializers.ModelSerializer):
-    created_by = serializers.SlugRelatedField(
-    queryset= UserDetail.objects.all(),
-    slug_field='email'  # Now using email instead of ID
-)
     class Meta:
         model = ticket
-        fields = ['id', 'ticket_number', 'ticket_type', 'ticket_category', 
-                  'description', 'budget', 'file_upload' ,'estimated_completion', 
-                  'created_on' , 'modified_on', 'created_by','ticket_state','comments',]
-        # fields = '__all__'
+        fields = '__all__'
+        read_only_fields = ['created_by']
+
+# class TicketSerializer(serializers.ModelSerializer):
+#     created_by = serializers.SlugRelatedField(
+#     queryset= UserDetail.objects.all(),
+#     slug_field='email'  # Now using email instead of ID
+# )
+#     class Meta:
+#         model = ticket
+#         fields = ['id', 'ticket_number', 'ticket_type', 'ticket_category', 
+#                   'description', 'budget', 'file_upload' ,'estimated_completion', 
+#                   'created_on' , 'modified_on', 'created_by','ticket_state','comments',]
+#         # fields = '__all__'

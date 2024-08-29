@@ -78,4 +78,12 @@ class ProfileView(APIView):
         serializer = UserSerializer(user)
         return Response(serializer.data)
     
+class UserTicketView(generics.ListAPIView):
+    serializer_class = TicketSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return ticket.objects.filter(created_by=self.request.user)
+    
+    
     

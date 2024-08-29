@@ -26,7 +26,7 @@ class CustomUserAdmin(UserAdmin):
 
 class TicketView(admin.ModelAdmin):
     list_display=('id','ticket_type','created_by', 'ticket_state','estimated_completion','modified_on','created_on','requested_for')
-    list_filter=('ticket_number', 'ticket_type','created_by','requested_for','ticket_state')
+    search_fields=('ticket_number', 'ticket_type','ticket_state',)
     list_per_page= 30
 
 

@@ -37,5 +37,7 @@ class TicketSerializer(serializers.ModelSerializer):
 )
     class Meta:
         model = ticket
-        fields = ['id', 'ticket_number', 'ticket_type', 'ticket_category', 'description', 'budget', 'file_upload' ,'estimated_completion', 'created_on' , 'modified_on', 'created_by']
+        fields = ['id', 'ticket_number', 'ticket_type', 'ticket_category', 
+                  'description', 'budget', 'file_upload' ,'estimated_completion', 
+                  'created_on' , 'modified_on', 'created_by','ticket_state','comments',]
         # fields = '__all__'

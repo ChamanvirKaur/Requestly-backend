@@ -27,6 +27,14 @@ class UserCreateView(generics.CreateAPIView):
             headers=headers 
         )
 
+class UserUpdateView(generics.UpdateAPIView):
+    serializer_class=UserSerializer
+    queryset=UserDetail.objects.all()
+    permission_classes =[IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
 class LoginView(APIView):
     permission_classes = [AllowAny]
 

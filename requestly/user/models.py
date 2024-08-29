@@ -18,6 +18,15 @@ class UserDetail(BaseModel,AbstractUser):
            
            
 class ticket(models.Model):
+        state=(
+                ('New', 'New'),
+                ('In Progress', 'In Progress'),
+                ('On Hold', 'On Hold'),
+                ('Complete', 'Complete'),
+                ('Rejected','Rejected')
+
+        )
+
         ticket_number=ShortUUIDField(unique=True)
         ticket_type = models.CharField(max_length=70, blank= True)
         ticket_category=models.CharField(max_length=30, null= True, blank=True)
@@ -29,6 +38,8 @@ class ticket(models.Model):
         created_on = models.DateTimeField(auto_now_add=True)
         modified_on = AutoDateTimeField(auto_now=True)
         requested_for = models.ForeignKey(Branch, on_delete=models.CASCADE)
+        ticket_state = models.CharField(max_length=30, choices=state,null=True,blank=True,default='New')
+        comments = models.TextField(max_length=250, null=True,blank=True)  
 
         def __str__(self):
                 return self.ticket_number

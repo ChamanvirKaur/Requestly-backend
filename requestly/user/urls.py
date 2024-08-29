@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import UserCreateView, LoginView, LogoutView, UserListView, TicketViewSet, ProfileView
+from .views import UserCreateView, LoginView, LogoutView, UserListView, TicketViewSet, ProfileView , UserUpdateView
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -12,4 +12,5 @@ urlpatterns = [
     path('list/', UserListView.as_view(),  name ='user-list'),
     path('ticket/', include(router.urls), name = 'ticket' ),
     path('profile/', ProfileView.as_view(), name='profile'),
+    path('update/',UserUpdateView.as_view(),name='profile-update')
 ]

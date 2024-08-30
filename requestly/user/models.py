@@ -34,7 +34,7 @@ class ticket(models.Model):
         budget = models.CharField(max_length=10, blank=True, null=True)
         file_upload = models.FileField(blank=True, null=True)
         created_by=models.ForeignKey(UserDetail, on_delete=models.DO_NOTHING)
-        estimated_completion=models.DateTimeField()
+        estimated_completion=models.DateTimeField(blank=True, null=True)
         created_on = models.DateTimeField(auto_now_add=True)
         modified_on = AutoDateTimeField(auto_now=True)
         requested_branch = models.ForeignKey(Branch, on_delete=models.CASCADE)

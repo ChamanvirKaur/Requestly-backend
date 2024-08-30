@@ -1,6 +1,6 @@
 # users/views.py
 
-from rest_framework import generics, status, viewsets
+from rest_framework import generics, status, viewsets,permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
@@ -65,9 +65,14 @@ class UserListView(generics.ListAPIView):
     permission_classes = [AllowAny]  # Only authenticated users can access this view
 
 
-class TicketViewSet(viewsets.ModelViewSet):
+class TicketCreateView(generics.CreateAPIView):
     queryset = ticket.objects.all()
     serializer_class = TicketSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        # Set the created_by field to the currently authenticated user
+        serializer.save(created_by=self.request.user)
 
 
 class ProfileView(APIView):

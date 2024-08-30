@@ -23,19 +23,14 @@ class CustomUserAdmin(UserAdmin):
     list_display_links=('id','email','phone')
     search_fields = ('email','first_name','last_name','phone')
     list_per_page = 30
+    ordering =['-id']
 
 class TicketView(admin.ModelAdmin):
     list_display=('id','ticket_type','created_by', 'ticket_state','estimated_completion','modified_on','created_on','requested_branch')
     search_fields=('ticket_number', 'ticket_type','ticket_state',)
     list_per_page= 30
+    ordering=['-id']
 
-
-# class BranchView(admin.ModelAdmin):
-#     list_display = ('branch_number', 'branch_name', 'branch_address', 'branch_phone')
-#     search_field = ('branch_number','branch_name','branch_city')
-#     list_per_page = 30
-
-# admin.site.unregister(UserDetail)
 admin.site.register(UserDetail, CustomUserAdmin)
 admin.site.register(ticket,TicketView)
 
@@ -43,4 +38,3 @@ admin.site.unregister(Group)
 Group._meta.verbose_name_plural = 'Groups/Brand'
 admin.site.register(Group)
 
-# admin.site.register(Branch,BranchView)

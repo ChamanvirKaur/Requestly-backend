@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth import authenticate
-from .serializers import UserSerializer, TicketSerializer
+from .serializers import UserSerializer, TicketSerializer, UserSignupSerializer
 from django.contrib.auth.models import User
 from .models import UserDetail, ticket
 
@@ -62,7 +62,7 @@ class LogoutView(APIView):
 class UserListView(generics.ListAPIView):
     queryset = UserDetail.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [AllowAny]  # Only authenticated users can access this view
+    permission_classes = [IsAuthenticated]  # Only authenticated users can access this view
 
 
 class TicketCreateView(generics.CreateAPIView):
@@ -90,5 +90,21 @@ class UserTicketView(generics.ListAPIView):
     def get_queryset(self):
         return ticket.objects.filter(created_by=self.request.user)
     
-    
-    
+
+class UserSignupView(APIView):
+
+    def post(self, request):
+        serializer = UserSignupSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            # Save the new user
+            user = serializer.save()
+
+            # Automatically log the user in after signup
+            user = authenticate(username=user.username, password=request.data['password'])
+            if user is not None:
+                login(request, user)
+
+            return Response({"message": "User signed up and logged in successfully."}, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

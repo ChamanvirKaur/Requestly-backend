@@ -37,7 +37,8 @@ class ticket(models.Model):
         estimated_completion=models.DateTimeField(blank=True, null=True)
         created_on = models.DateTimeField(auto_now_add=True)
         modified_on = AutoDateTimeField(auto_now=True)
-        requested_branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
+        # requested_branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
+        requested_branch = models.CharField(max_length=90, null=True, blank=True)
         ticket_state = models.CharField(max_length=30, choices=state,null=True,blank=True,default='New')
         comments = models.TextField(max_length=250, null=True,blank=True)  
 

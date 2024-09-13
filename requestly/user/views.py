@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from .serializers import UserSerializer, TicketSerializer
 from django.contrib.auth.models import User
 from .models import UserDetail, ticket
@@ -92,6 +92,7 @@ class UserTicketView(generics.ListAPIView):
     
 
 class UserSignupView(APIView):
+    permission_classes =[AllowAny]
 
     def post(self, request):
         user_serializer = UserSerializer(data=request.data)

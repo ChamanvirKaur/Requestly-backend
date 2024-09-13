@@ -44,20 +44,21 @@ class TicketSerializer(serializers.ModelSerializer):
 #         # fields = '__all__'
 
 
-class UserSignupSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, min_length=8)
+# class UserSignupSerializer(serializers.ModelSerializer):
+#     password = serializers.CharField(write_only=True, min_length=8)
     
-    class Meta:
-        model = UserDetail
-        fields = '__all__'
+#     class Meta:
+#         model = UserDetail
+#         # fields = '__all__'
+#         fields = ['username', 'password']
 
-    def create(self, validated_data):
-        # Create a new user instance
-        user = User.objects.create_user(
-            username=validated_data['username'],
-            password=validated_data['password'],
-            street_address=validated_data['street_address'],
-            city=validated_data['city'],
-            province=validated_data['province']
-        )
-        return user
+#     def create(self, validated_data):
+#         # Create a new user instance
+#         user = User.objects.create_user(
+#             username=validated_data['username'],
+#             password=validated_data['password'],
+#             # street_address=validated_data['street_address'],
+#             # city=validated_data['city'],
+#             # province=validated_data['province']
+#         )
+#         return user

@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth import authenticate
-from .serializers import UserSerializer, TicketSerializer, UserSignupSerializer
+from .serializers import UserSerializer, TicketSerializer
 from django.contrib.auth.models import User
 from .models import UserDetail, ticket
 
@@ -94,17 +94,23 @@ class UserTicketView(generics.ListAPIView):
 class UserSignupView(APIView):
 
     def post(self, request):
-        serializer = UserSignupSerializer(data=request.data)
+        user_serializer = UserSerializer(data=request.data)
         
-        if serializer.is_valid():
+        if user_serializer.is_valid():
             # Save the new user
-            user = serializer.save()
+            user = user_serializer.save()
 
             # Automatically log the user in after signup
             user = authenticate(username=user.username, password=request.data['password'])
             if user is not None:
                 login(request, user)
 
-            return Response({"message": "User signed up and logged in successfully."}, status=status.HTTP_201_CREATED)
+                 # Generate a token for the user
+                token, created = Token.objects.get_or_create(user=user)
+
+            return Response({
+                    'message': 'User signed up and logged in successfully.',
+                    'token': token.key
+                }, status=status.HTTP_201_CREATED)
         
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
